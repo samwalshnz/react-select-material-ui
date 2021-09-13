@@ -24,7 +24,7 @@ const styles = createStyles((theme) => ({
   }
 }));
 
-const Control = ({ children, classes, innerProps, innerRef, selectProps: { TextFieldProps } }) => {
+const ControlBase = ({ children, classes, innerProps, innerRef, selectProps: { TextFieldProps } }) => {
   return (
     <TextField
       InputProps={{
@@ -40,6 +40,8 @@ const Control = ({ children, classes, innerProps, innerRef, selectProps: { TextF
     />
   );
 };
+
+const Control = withStyles(styles)(ControlBase)
 
 Control.propTypes = {
   children: PropTypes.node.isRequired,
