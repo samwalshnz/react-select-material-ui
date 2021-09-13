@@ -3,27 +3,34 @@ import PropTypes from 'prop-types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import InputComponent from './InputComponent';
+import classNames from 'classnames';
 
-const useStyles = makeStyles((theme) => ({
+const styles = createStyles((theme) => ({
   input: {
     display: 'flex',
-    padding: ({ dense }) => {
-      const verticalPadding = dense ? 0.5 : 1.25;
-      return theme.spacing(verticalPadding, 0.25, verticalPadding, 1.75);
-    },
+    paddingTop: theme.spacing.unit * 1.25,
+    paddingRight: 0.25,
+    paddingBottom: theme.spacing.unit * 1.25,
+    paddingLeft: 1.75,
     height: 'auto',
     minHeight: 36
+  },
+  dense: {
+    
+    paddingTop: theme.spacing.unit * 0.5,
+    paddingRight: 0.25,
+    paddingBottom: theme.spacing.unit * 0.5,
+    paddingLeft: 1.75,
   }
 }));
 
-const Control = ({ children, innerProps, innerRef, selectProps: { TextFieldProps } }) => {
-  const classes = useStyles({ dense: TextFieldProps.margin === 'dense' });
+const Control = ({ children, classes, innerProps, innerRef, selectProps: { TextFieldProps } }) => {
   return (
     <TextField
       InputProps={{
         inputComponent: InputComponent,
         inputProps: {
-          className: classes.input,
+          className: classNames(classes.input, {[classes.dense]: TextFieldProps.margin === 'dense'}),
           ref: innerRef,
           children,
           ...innerProps
